@@ -1,0 +1,116 @@
+<head>
+    <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+    <style>
+        *,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body,
+section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+body {
+  min-height: 100vh;
+  font-family: "Lato", sans-serif;
+  line-height: 1.5;
+  color: #111;
+}
+
+main {
+  max-width: 720px;
+  width: 100%;
+  border: 2.5px solid #B4DFF2;
+  border-radius: 2.5px;
+  box-shadow: 0 10px 20px rgba(17, 17, 17, 0.125),
+    0 5px 5px rgba(17, 17, 17, 0.25);
+  background-image: linear-gradient(to top, #C6B0EE 0%, #B4DFF2 100%); /*This is how to make a gradient in a box!!!*/
+  /*color: #F6CFDC;*/
+}
+
+h1 {
+  padding: 1rem;
+  color: white;
+}
+
+input,
+button {
+  font-family: inherit;
+  line-height: inherit;
+  color: inherit;
+  border: 0;
+  padding: 1rem;
+}
+
+input {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.buttons {
+  display: flex;
+}
+
+button {
+  cursor: pointer;
+  flex: 1;
+  background-color: transparent;
+  color: white;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+section {
+  min-height: 120px;
+  text-align: center;
+  background-color: white;
+}
+
+    </style>
+</head>
+<main>
+  <h1>URL Shortener</h1>
+  <form id="post-form"> <!--using post method to configure it in ajax script -->
+    {% csrf_token %} <!--Cross site request forgery protection -->
+  <input type="text" name="link" id="link" placeholder="Enter URL here"> <!--Make sure ID is link and not input -->
+  <div class="buttons">
+    <button type="submit" id="shorten">Shorten</button>
+  </div>
+  </form>
+
+  
+  <section id="section"><h2></h2></section> <!--Leave h2 blank to update with http response -->
+
+   
+
+    
+</main>
+
+
+<!--once post form has been submitted post the form to /create -->
+
+<script type="text/javascript">
+  $(document).on('submit','#post-form',function(e){ 
+    e.preventDefault(); //makes sure the page doesn't reload
+
+    $.ajax({
+      type:'POST',
+      url:'/create', //url data is being posted to
+      data:{
+        link:$('#link').val(), //data contained - url
+        csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(), //csrf token
+      },
+      success: function(data){ //if everything submitted successfully
+        //$('h2').html("localhost:8000/"+data) //we use this because the app is not deployed on the web
+        $('h2').html("www.qwpo.gq/"+data) //data is the variable with the http repsonse stored within it
+        //$('h2').html("https://git.heroku.com/urlshortvapour.git/"+data)
+      }
+    });
+  });
+</script>

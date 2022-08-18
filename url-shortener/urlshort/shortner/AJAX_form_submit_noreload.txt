@@ -1,0 +1,14 @@
+See /templates for index.html file
+
+go to the <input> element
+
+add the relevant tags and script
+
+go to views.py py - once a user clicks shorted we have to take them to a seperate url called create
+it will create the entry in the database and send a response
+
+then add the url to urls .py and views.py
+
+Now we just need to submit the form to the create url
+
+Then in views.py process the data in the create function

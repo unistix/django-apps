@@ -1,0 +1,35 @@
+create a runtime file 
+then a Procfile
+
+then pip freeze > requirements.txt
+import django_heroku  and dj_database_url into settigns.py 
+then allow all hosts in settings.py
+
+Then scroll down to databases
+Delete content inside 'default'{} and replace with  dj_database_url.config()
+Then scroll to the end and add django_heroku.settings(locals())
+
+Then go to cmd and type in heroku login
+
+heroku create urlshortvapour [must be a unique name]
+
+git init
+git remote -v 
+git remote add heroku https://git.heroku.com/urlshortvapour.git
+git remote -v 
+
+Then create a new database - create a postgres db with the hobby-dev version
+heroku addons:create heroku-postgresql:hobby-dev
+
+git add .
+commit
+push heroku master
+
+Link to deployed site: https://urlshortvapour.herokuapp.com/ deployed to Heroku
+
+before we test the app we need to go back and migrate our db 
+
+heroku run python manage.py makemigrations
+heroku run python manage.py migrate
+
+ qpwo.ga

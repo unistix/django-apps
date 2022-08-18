@@ -1,0 +1,7 @@
+Start Django
+
+
+venv\Scripts\activate
+python .\manage.py runserver
+
+Url shortner works by hashing the long version of the link and taking a user back to the orginal link when they click on the hashed version
